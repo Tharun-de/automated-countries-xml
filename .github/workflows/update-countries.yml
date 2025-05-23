@@ -1,0 +1,190 @@
+name: 🌍 Auto-Update Countries XML
+
+# When this workflow runs
+on:
+  # Scheduled runs - every day at 6 AM UTC
+  schedule:
+    - cron: '0 6 * * *'
+  
+  # Allow manual triggering from GitHub UI
+  workflow_dispatch:
+    inputs:
+      countries:
+        description: 'Comma-separated list of countries to include (optional)'
+        required: false
+        default: 'india,japan,germany,france,brazil'
+      force_update:
+        description: 'Force update even if no changes detected'
+        required: false
+        default: false
+        type: boolean
+
+# Workflow permissions
+permissions:
+  contents: write  # Needed to commit changes
+  actions: read    # Needed to read workflow files
+
+jobs:
+  update-countries-xml:
+    name: 📋 Update Countries XML Data
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout the repository
+      - name: 🔄 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better commit messages
+
+      # Step 2: Set up Python environment
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'  # Cache pip dependencies
+
+      # Step 3: Install dependencies
+      - name: 📦 Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Test API connectivity
+      - name: 🌐 Test API Connection
+        run: |
+          echo "Testing REST Countries API connectivity..."
+          python examples/test_api.py
+        continue-on-error: true  # Don't fail if API test has minor issues
+
+      # Step 5: Generate updated XML
+      - name: 📝 Generate Updated XML
+        id: generate_xml
+        run: |
+          echo "Starting XML generation..."
+          
+          # Use input countries if provided, otherwise use default
+          COUNTRIES="${{ github.event.inputs.countries || 'india,japan,germany,france,brazil,united states,china,russia,canada,australia' }}"
+          echo "Countries to process: $COUNTRIES"
+          
+          # Run the XML generator
+          python src/automated_generator.py --countries "$COUNTRIES" --output "output/countries.xml"
+          
+          # Check if files were created/modified
+          if [ -f "output/countries.xml" ]; then
+            echo "✅ XML generation successful"
+            echo "xml_generated=true" >> $GITHUB_OUTPUT
+            
+            # Get file stats for commit message
+            COUNTRY_COUNT=$(grep -c "<Countries>" output/countries.xml || echo "0")
+            echo "country_count=$COUNTRY_COUNT" >> $GITHUB_OUTPUT
+            
+            # Check if file actually changed
+            if git diff --quiet output/countries.xml 2>/dev/null; then
+              echo "No changes detected in XML"
+              echo "changes_detected=false" >> $GITHUB_OUTPUT
+            else
+              echo "Changes detected in XML"
+              echo "changes_detected=true" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "❌ XML generation failed"
+            echo "xml_generated=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Step 6: Validate generated XML
+      - name: ✅ Validate XML
+        if: steps.generate_xml.outputs.xml_generated == 'true'
+        run: |
+          echo "Validating generated XML..."
+          python -c "
+          import xml.etree.ElementTree as ET
+          try:
+              tree = ET.parse('output/countries.xml')
+              root = tree.getroot()
+              print(f'✅ XML is valid')
+              print(f'📊 Found {len(root.findall(\".//Countries\"))} country entries')
+          except Exception as e:
+              print(f'❌ XML validation failed: {e}')
+              exit(1)
+          "
+
+      # Step 7: Create commit message with stats
+      - name: 📊 Prepare Commit Message
+        if: steps.generate_xml.outputs.changes_detected == 'true' || github.event.inputs.force_update == 'true'
+        id: commit_msg
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          COUNTRY_COUNT="${{ steps.generate_xml.outputs.country_count }}"
+          
+          # Create detailed commit message
+          cat > commit_message.txt << EOF
+          🌍 Auto-update countries XML data
+          
+          📅 Updated: $TIMESTAMP
+          📊 Countries: $COUNTRY_COUNT
+          🤖 Automated via GitHub Actions
+          
+          Changes:
+          - Fetched latest data from REST Countries API
+          - Updated XML with current country and currency information
+          - Validated XML structure and content
+          
+          Workflow: ${{ github.workflow }}
+          Run ID: ${{ github.run_id }}
+          EOF
+          
+          echo "Commit message prepared"
+
+      # Step 8: Commit and push changes
+      - name: 💾 Commit Changes
+        if: steps.generate_xml.outputs.changes_detected == 'true' || github.event.inputs.force_update == 'true'
+        run: |
+          # Configure git
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add changes
+          git add output/countries.xml
+          git add -A  # Add any other generated files
+          
+          # Commit with detailed message
+          git commit -F commit_message.txt
+          
+          # Push changes
+          git push
+          
+          echo "✅ Changes committed and pushed successfully"
+
+      # Step 9: Create summary
+      - name: 📋 Job Summary
+        if: always()
+        run: |
+          echo "## 🌍 Countries XML Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.generate_xml.outputs.xml_generated }}" == "true" ]; then
+            echo "✅ **Status**: XML generation successful" >> $GITHUB_STEP_SUMMARY
+            echo "📊 **Countries processed**: ${{ steps.generate_xml.outputs.country_count }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Status**: XML generation failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Useful Links" >> $GITHUB_STEP_SUMMARY
+          echo "- [Generated XML File](../../blob/main/output/countries.xml)" >> $GITHUB_STEP_SUMMARY
+          echo "- [API Documentation](https://restcountries.com/)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Workflow History](../../actions)" >> $GITHUB_STEP_SUMMARY
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_Automated by GitHub Actions 🤖_" >> $GITHUB_STEP_SUMMARY
+
+      # Step 10: Notify on failure (optional)
+      - name: 🚨 Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ Workflow failed!"
+          echo "Check the logs above for details."
+          echo "Common issues:"
+          echo "- API connectivity problems"
+          echo "- Invalid country names"
+          echo "- XML generation errors" 

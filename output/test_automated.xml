@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CountriesCollection>
+  <Countries>
+    <Code>IN</Code>
+    <OriginalName>Republic of India</OriginalName>
+    <CommonName>India</CommonName>
+    <LocalName>भारत गणराज्य</LocalName>
+    <OfficialCurrency>
+      <Code>INR</Code>
+      <Name>Indian rupee</Name>
+      <Symbol>₹</Symbol>
+    </OfficialCurrency>
+  </Countries>
+
+  <Countries>
+    <Code>JP</Code>
+    <OriginalName>Japan</OriginalName>
+    <CommonName>Japan</CommonName>
+    <LocalName>日本</LocalName>
+    <OfficialCurrency>
+      <Code>JPY</Code>
+      <Name>Japanese yen</Name>
+      <Symbol>¥</Symbol>
+    </OfficialCurrency>
+  </Countries>
+
+  <Countries>
+    <Code>FR</Code>
+    <OriginalName>French Republic</OriginalName>
+    <CommonName>France</CommonName>
+    <LocalName>République française</LocalName>
+    <OfficialCurrency>
+      <Code>EUR</Code>
+      <Name>Euro</Name>
+      <Symbol>€</Symbol>
+    </OfficialCurrency>
+  </Countries>
+
+</CountriesCollection>

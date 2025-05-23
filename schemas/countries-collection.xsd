@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Countries Collection Schema Definition (countries-collection.xsd)
+  
+  Purpose: Defines the root structure for multiple countries
+  Dependencies: Imports country.xsd which imports currency.xsd
+  
+  Learning Notes:
+  - Shows how to create collection/wrapper schemas
+  - Demonstrates unbounded elements for multiple entries
+  - Creates the final structure for your target XML format
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://countryxml.com/schemas/collection"
+           xmlns:collection="http://countryxml.com/schemas/collection"
+           xmlns:country="http://countryxml.com/schemas/country"
+           elementFormDefault="qualified">
+
+  <!-- Import the country schema which includes currency -->
+  <xs:import namespace="http://countryxml.com/schemas/country" 
+             schemaLocation="country.xsd"/>
+
+  <!-- 
+    Countries Collection Complex Type
+    
+    This defines the structure for holding multiple countries
+    Uses unbounded maxOccurs to allow any number of countries
+  -->
+  <xs:complexType name="CountriesCollectionType">
+    <xs:annotation>
+      <xs:documentation>
+        Collection of multiple countries with their details and currencies
+        Can contain unlimited number of country entries
+      </xs:documentation>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <!-- Multiple Countries - unbounded means unlimited -->
+      <xs:element name="Countries" 
+                  type="country:CountryType" 
+                  minOccurs="0" 
+                  maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            Individual country entries. Can have zero or more countries.
+            Each country follows the CountryType structure from country.xsd
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    
+    <!-- Optional attributes for the collection -->
+    <xs:attribute name="totalCount" type="xs:nonNegativeInteger" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          Optional count of total countries in the collection
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    
+    <xs:attribute name="lastUpdated" type="xs:dateTime" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          Optional timestamp of when the collection was last updated
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    
+    <xs:attribute name="source" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          Optional source of the data (e.g., "REST Countries API")
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- 
+    Root Element - This is what your XML files will start with
+    
+    This creates the exact structure you want:
+    <CountriesCollection>
+      <Countries>...</Countries>
+      <Countries>...</Countries>
+    </CountriesCollection>
+  -->
+  <xs:element name="CountriesCollection" type="collection:CountriesCollectionType">
+    <xs:annotation>
+      <xs:documentation>
+        Root element for XML files containing multiple countries
+        This is the top-level element for your generated XML files
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <!-- 
+    Alternative: Simplified Root (for your exact format)
+    
+    If you prefer the simpler format without wrapper attributes,
+    this element creates exactly your target structure
+  -->
+  <xs:element name="CountriesSimple">
+    <xs:annotation>
+      <xs:documentation>
+        Simplified root element matching your exact target format
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Countries" 
+                    type="country:CountryType" 
+                    minOccurs="0" 
+                    maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema> 

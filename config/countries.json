@@ -1,0 +1,32 @@
+{
+  "countries": [
+    "india",
+    "japan",
+    "germany",
+    "france",
+    "brazil",
+    "united states",
+    "china",
+    "russia",
+    "canada",
+    "australia",
+    "united kingdom",
+    "italy",
+    "spain",
+    "mexico",
+    "south korea"
+  ],
+  "settings": {
+    "update_frequency": "daily",
+    "api_timeout": 10,
+    "output_format": "formatted_xml",
+    "include_metadata": true
+  },
+  "metadata": {
+    "description": "Configuration for Countries XML Auto-Generator",
+    "version": "1.0.0",
+    "last_updated": "2024-01-01",
+    "api_source": "https://restcountries.com/v3.1",
+    "schema_version": "1.0"
+  }
+} 

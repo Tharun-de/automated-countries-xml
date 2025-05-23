@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Currency Schema Definition (currency.xsd)
+  
+  Purpose: Defines the structure and validation rules for currency data
+  Reusability: Can be imported by other schemas (country, product, invoice, etc.)
+  
+  Learning Notes:
+  - This demonstrates modular schema design
+  - Complex types can be reused across multiple schemas
+  - Validation rules ensure data quality
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://countryxml.com/schemas/currency"
+           xmlns:currency="http://countryxml.com/schemas/currency"
+           elementFormDefault="qualified">
+
+  <!-- 
+    Currency Complex Type Definition
+    
+    This defines the structure for any currency object
+    Used in country schemas and potentially other financial schemas
+  -->
+  <xs:complexType name="CurrencyType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a currency with code, name, and symbol
+        Based on ISO 4217 standards for currency codes
+      </xs:documentation>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <!-- Currency Code (e.g., USD, EUR, INR) -->
+      <xs:element name="Code" type="currency:CurrencyCodeType">
+        <xs:annotation>
+          <xs:documentation>
+            Three-letter ISO 4217 currency code (e.g., USD, EUR, INR)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <!-- Currency Name (e.g., US Dollar, Euro, Indian Rupee) -->
+      <xs:element name="Name" type="currency:CurrencyNameType">
+        <xs:annotation>
+          <xs:documentation>
+            Full name of the currency (e.g., "US Dollar", "Indian Rupee")
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <!-- Currency Symbol (e.g., $, €, ₹) -->
+      <xs:element name="Symbol" type="currency:CurrencySymbolType">
+        <xs:annotation>
+          <xs:documentation>
+            Unicode symbol for the currency (e.g., $, €, ₹)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- 
+    Currency Code Type - Restricted to 3 uppercase letters
+    Following ISO 4217 standard
+  -->
+  <xs:simpleType name="CurrencyCodeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z]{3}"/>
+      <xs:length value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 
+    Currency Name Type - String with reasonable length limits
+  -->
+  <xs:simpleType name="CurrencyNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="100"/>
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 
+    Currency Symbol Type - Limited length for symbols
+  -->
+  <xs:simpleType name="CurrencySymbolType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="10"/>
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 
+    Root Currency Element - For standalone currency documents
+    This allows us to create XML files with just currency data
+  -->
+  <xs:element name="Currency" type="currency:CurrencyType">
+    <xs:annotation>
+      <xs:documentation>
+        Root element for standalone currency documents
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+</xs:schema> 

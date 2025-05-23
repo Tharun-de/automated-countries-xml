@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Country Schema Definition (country.xsd)
+  
+  Purpose: Defines the structure for country data, including embedded currency
+  Dependencies: Imports currency.xsd for reusable currency types
+  
+  Learning Notes:
+  - Demonstrates schema imports and namespaces
+  - Shows how to combine modular schemas
+  - Defines validation rules for country-specific data
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://countryxml.com/schemas/country"
+           xmlns:country="http://countryxml.com/schemas/country"
+           xmlns:currency="http://countryxml.com/schemas/currency"
+           elementFormDefault="qualified">
+
+  <!-- Import the currency schema for reusable currency types -->
+  <xs:import namespace="http://countryxml.com/schemas/currency" 
+             schemaLocation="currency.xsd"/>
+
+  <!-- 
+    Country Complex Type Definition
+    
+    This is the main structure for a country with all its properties
+    Including embedded currency information
+  -->
+  <xs:complexType name="CountryType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a country with code, names, and official currency
+        Based on ISO 3166 country codes and REST Countries API structure
+      </xs:documentation>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <!-- Country Code (ISO 3166-1 alpha-2, e.g., IN, JP, US) -->
+      <xs:element name="Code" type="country:CountryCodeType">
+        <xs:annotation>
+          <xs:documentation>
+            Two-letter ISO 3166-1 alpha-2 country code (e.g., IN, JP, US)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <!-- Official/Formal name of the country -->
+      <xs:element name="OriginalName" type="country:CountryNameType">
+        <xs:annotation>
+          <xs:documentation>
+            Official formal name (e.g., "Republic of India", "Japan")
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <!-- Common name used in everyday language -->
+      <xs:element name="CommonName" type="country:CountryNameType">
+        <xs:annotation>
+          <xs:documentation>
+            Common name used in everyday language (e.g., "India", "Japan")
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <!-- Local name in native language/script -->
+      <xs:element name="LocalName" type="country:LocalNameType">
+        <xs:annotation>
+          <xs:documentation>
+            Name in local language/script (e.g., "भारत गणराज्य", "日本国")
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <!-- Official Currency - using imported currency type -->
+      <xs:element name="OfficialCurrency" type="currency:CurrencyType">
+        <xs:annotation>
+          <xs:documentation>
+            Official currency of the country using imported CurrencyType
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- 
+    Country Code Type - ISO 3166-1 alpha-2 format
+    Two uppercase letters
+  -->
+  <xs:simpleType name="CountryCodeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z]{2}"/>
+      <xs:length value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 
+    Country Name Type - For official and common names
+    Standard string with reasonable length limits
+  -->
+  <xs:simpleType name="CountryNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="200"/>
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 
+    Local Name Type - For names in native scripts
+    Allows Unicode characters for various scripts (Hindi, Japanese, Arabic, etc.)
+  -->
+  <xs:simpleType name="LocalNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0"/>  <!-- Can be empty if no local name available -->
+      <xs:maxLength value="300"/> <!-- Longer to accommodate complex scripts -->
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 
+    Root Country Element - For standalone country documents
+    This allows us to create XML files with just one country
+  -->
+  <xs:element name="Country" type="country:CountryType">
+    <xs:annotation>
+      <xs:documentation>
+        Root element for standalone country documents
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+</xs:schema> 
