@@ -129,8 +129,10 @@ class ImprovedCountryXMLGenerator:
         # Join all lines
         final_xml = "\n".join(xml_lines)
         
-        # Ensure output directory exists
-        os.makedirs(os.path.dirname(output_file), exist_ok=True)
+        # Ensure output directory exists (only if path contains a directory)
+        output_dir = os.path.dirname(output_file)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         
         # Write to file
         with open(output_file, 'w', encoding='utf-8') as f:
