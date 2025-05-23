@@ -89,15 +89,3 @@ The system generates XML files like:
     </OfficialCurrency>
 </Countries>
 ```
-
-## 🤝 Contributing
-
-This is a learning project! Feel free to:
-- Add new features
-- Improve documentation
-- Suggest better approaches
-- Report issues
-
-## 📄 License
-
-MIT License - Feel free to use this for learning and development! 
