@@ -61,10 +61,10 @@
   </Countries>
 
   <Countries>
-    <Code>UM</Code>
-    <OriginalName>United States Minor Outlying Islands</OriginalName>
-    <CommonName>United States Minor Outlying Islands</CommonName>
-    <LocalName>United States Minor Outlying Islands</LocalName>
+    <Code>VI</Code>
+    <OriginalName>Virgin Islands of the United States</OriginalName>
+    <CommonName>United States Virgin Islands</CommonName>
+    <LocalName>Virgin Islands of the United States</LocalName>
     <OfficialCurrency>
       <Code>USD</Code>
       <Name>United States dollar</Name>
@@ -73,14 +73,14 @@
   </Countries>
 
   <Countries>
-    <Code>MO</Code>
-    <OriginalName>Macao Special Administrative Region of the People's Republic of China</OriginalName>
-    <CommonName>Macau</CommonName>
-    <LocalName>中华人民共和国澳门特别行政区</LocalName>
+    <Code>TW</Code>
+    <OriginalName>Republic of China (Taiwan)</OriginalName>
+    <CommonName>Taiwan</CommonName>
+    <LocalName>中華民國</LocalName>
     <OfficialCurrency>
-      <Code>MOP</Code>
-      <Name>Macanese pataca</Name>
-      <Symbol>P</Symbol>
+      <Code>TWD</Code>
+      <Name>New Taiwan dollar</Name>
+      <Symbol>$</Symbol>
     </OfficialCurrency>
   </Countries>
 
