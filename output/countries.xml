@@ -61,10 +61,10 @@
   </Countries>
 
   <Countries>
-    <Code>VI</Code>
-    <OriginalName>Virgin Islands of the United States</OriginalName>
-    <CommonName>United States Virgin Islands</CommonName>
-    <LocalName>Virgin Islands of the United States</LocalName>
+    <Code>US</Code>
+    <OriginalName>United States of America</OriginalName>
+    <CommonName>United States</CommonName>
+    <LocalName>United States of America</LocalName>
     <OfficialCurrency>
       <Code>USD</Code>
       <Name>United States dollar</Name>
@@ -73,13 +73,13 @@
   </Countries>
 
   <Countries>
-    <Code>TW</Code>
-    <OriginalName>Republic of China (Taiwan)</OriginalName>
-    <CommonName>Taiwan</CommonName>
-    <LocalName>中華民國</LocalName>
+    <Code>HK</Code>
+    <OriginalName>Hong Kong Special Administrative Region of the People's Republic of China</OriginalName>
+    <CommonName>Hong Kong</CommonName>
+    <LocalName>中华人民共和国香港特别行政区</LocalName>
     <OfficialCurrency>
-      <Code>TWD</Code>
-      <Name>New Taiwan dollar</Name>
+      <Code>HKD</Code>
+      <Name>Hong Kong dollar</Name>
       <Symbol>$</Symbol>
     </OfficialCurrency>
   </Countries>
