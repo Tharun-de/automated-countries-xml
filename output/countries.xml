@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CountriesCollection>
   <Countries>
-    <Code>IN</Code>
-    <OriginalName>Republic of India</OriginalName>
-    <CommonName>India</CommonName>
-    <LocalName>भारत गणराज्य</LocalName>
+    <Code>IO</Code>
+    <OriginalName>British Indian Ocean Territory</OriginalName>
+    <CommonName>British Indian Ocean Territory</CommonName>
+    <LocalName>British Indian Ocean Territory</LocalName>
     <OfficialCurrency>
-      <Code>INR</Code>
-      <Name>Indian rupee</Name>
-      <Symbol>₹</Symbol>
+      <Code>USD</Code>
+      <Name>United States dollar</Name>
+      <Symbol>$</Symbol>
     </OfficialCurrency>
   </Countries>
 
