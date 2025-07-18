@@ -61,10 +61,10 @@
   </Countries>
 
   <Countries>
-    <Code>UM</Code>
-    <OriginalName>United States Minor Outlying Islands</OriginalName>
-    <CommonName>United States Minor Outlying Islands</CommonName>
-    <LocalName>United States Minor Outlying Islands</LocalName>
+    <Code>US</Code>
+    <OriginalName>United States of America</OriginalName>
+    <CommonName>United States</CommonName>
+    <LocalName>United States of America</LocalName>
     <OfficialCurrency>
       <Code>USD</Code>
       <Name>United States dollar</Name>
