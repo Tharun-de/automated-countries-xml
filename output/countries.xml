@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CountriesCollection>
   <Countries>
-    <Code>IO</Code>
-    <OriginalName>British Indian Ocean Territory</OriginalName>
-    <CommonName>British Indian Ocean Territory</CommonName>
-    <LocalName>British Indian Ocean Territory</LocalName>
+    <Code>IN</Code>
+    <OriginalName>Republic of India</OriginalName>
+    <CommonName>India</CommonName>
+    <LocalName>भारत गणराज्य</LocalName>
     <OfficialCurrency>
-      <Code>USD</Code>
-      <Name>United States dollar</Name>
-      <Symbol>$</Symbol>
+      <Code>INR</Code>
+      <Name>Indian rupee</Name>
+      <Symbol>₹</Symbol>
     </OfficialCurrency>
   </Countries>
 
@@ -61,10 +61,10 @@
   </Countries>
 
   <Countries>
-    <Code>VI</Code>
-    <OriginalName>Virgin Islands of the United States</OriginalName>
-    <CommonName>United States Virgin Islands</CommonName>
-    <LocalName>Virgin Islands of the United States</LocalName>
+    <Code>US</Code>
+    <OriginalName>United States of America</OriginalName>
+    <CommonName>United States</CommonName>
+    <LocalName>United States of America</LocalName>
     <OfficialCurrency>
       <Code>USD</Code>
       <Name>United States dollar</Name>
@@ -73,14 +73,14 @@
   </Countries>
 
   <Countries>
-    <Code>CN</Code>
-    <OriginalName>People's Republic of China</OriginalName>
-    <CommonName>China</CommonName>
-    <LocalName>中华人民共和国</LocalName>
+    <Code>TW</Code>
+    <OriginalName>Republic of China (Taiwan)</OriginalName>
+    <CommonName>Taiwan</CommonName>
+    <LocalName>中華民國</LocalName>
     <OfficialCurrency>
-      <Code>CNY</Code>
-      <Name>Chinese yuan</Name>
-      <Symbol>¥</Symbol>
+      <Code>TWD</Code>
+      <Name>New Taiwan dollar</Name>
+      <Symbol>$</Symbol>
     </OfficialCurrency>
   </Countries>
 
