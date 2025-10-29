@@ -61,10 +61,10 @@
   </Countries>
 
   <Countries>
-    <Code>VI</Code>
-    <OriginalName>Virgin Islands of the United States</OriginalName>
-    <CommonName>United States Virgin Islands</CommonName>
-    <LocalName>Virgin Islands of the United States</LocalName>
+    <Code>US</Code>
+    <OriginalName>United States of America</OriginalName>
+    <CommonName>United States</CommonName>
+    <LocalName>United States of America</LocalName>
     <OfficialCurrency>
       <Code>USD</Code>
       <Name>United States dollar</Name>
@@ -73,14 +73,14 @@
   </Countries>
 
   <Countries>
-    <Code>MO</Code>
-    <OriginalName>Macao Special Administrative Region of the People's Republic of China</OriginalName>
-    <CommonName>Macau</CommonName>
-    <LocalName>中华人民共和国澳门特别行政区</LocalName>
+    <Code>HK</Code>
+    <OriginalName>Hong Kong Special Administrative Region of the People's Republic of China</OriginalName>
+    <CommonName>Hong Kong</CommonName>
+    <LocalName>中华人民共和国香港特别行政区</LocalName>
     <OfficialCurrency>
-      <Code>MOP</Code>
-      <Name>Macanese pataca</Name>
-      <Symbol>P</Symbol>
+      <Code>HKD</Code>
+      <Name>Hong Kong dollar</Name>
+      <Symbol>$</Symbol>
     </OfficialCurrency>
   </Countries>
 
