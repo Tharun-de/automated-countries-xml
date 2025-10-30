@@ -61,10 +61,10 @@
   </Countries>
 
   <Countries>
-    <Code>US</Code>
-    <OriginalName>United States of America</OriginalName>
-    <CommonName>United States</CommonName>
-    <LocalName>United States of America</LocalName>
+    <Code>VI</Code>
+    <OriginalName>Virgin Islands of the United States</OriginalName>
+    <CommonName>United States Virgin Islands</CommonName>
+    <LocalName>Virgin Islands of the United States</LocalName>
     <OfficialCurrency>
       <Code>USD</Code>
       <Name>United States dollar</Name>
